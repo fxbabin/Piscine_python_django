@@ -1,0 +1,5 @@
+title = "my great CV"
+name = "babin"
+surname = "fx"
+age = "42"
+profession = "data scientist"
