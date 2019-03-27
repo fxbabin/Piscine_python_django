@@ -35,7 +35,7 @@ def test_elem_basics():
     assert str(Elem(content=Elem())) == '<div>\n  <div></div>\n</div>'
     # With list as content :
     assert str(Elem(content=[Text('foo'), Text('bar'), Elem()])) == '<div>\n  foo\n  bar\n \
- <div></div>\n</div>'https://www.https:https://https://https://www.https://www.youtube.com/watch?v=f5qICl3Fr3whttps://www.youtube.com/watch?v=f5qICl3Fr3wyoutube.com/watch?v=f5qICl3Fr3wwww.https://www.youtube.com/watch?v=f5qICl3Fr3whttps://www.youtube.com/watch?v=f5qICl3Fr3wyoutube.com/watch?v=f5qICl3Fr3wwww.https://www.youtube.com/watch?v=f5qICl3Fr3whttps://www.youtube.com/watch?v=f5qICl3Fr3wyoutube.com/watch?v=f5qICl3Fr3w//www.youtube.com/watch?v=f5qICl3Fr3whttps://www.youtube.com/watch?v=f5qICl3Fr3wyoutube.com/watch?v=f5qICl3Fr3w
+ <div></div>\n</div>'
     print('Basic Elem behaviour : OK.')
 
     
@@ -119,8 +119,8 @@ def test():
 if __name__ == '__main__':
     try :
         test()
-        print('Tests succeeded!'elem)
+        print('Tests succeeded!')
     except AssertionError as e:
         traceback.print_exc()
         print(e)
-print('Tests failed!')
+        print('Tests failed!')
