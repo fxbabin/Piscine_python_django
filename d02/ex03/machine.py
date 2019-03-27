@@ -1,6 +1,7 @@
 #! /usr/bin/python3
 
-from beverages import HotBeverages, Chocolate
+import random
+from beverages import HotBeverages, Coffee, Cappuccino, Tea, Chocolate
 
 class CoffeeMachine():
     
@@ -21,29 +22,28 @@ class CoffeeMachine():
     def repair(self):
         self.obsolescence = 0
 
-    def serve(self, Chocolate):
-        #random
-        # inst or emptycup
+    def serve(self, hotBeverage):
         self.obsolescence += 1
-        if self.obsolescence > 10:
+        if self.obsolescence >= 10:
             raise self.BrokenMachineException()
-        if (self.obsolescence % 2) == 0:
-            return (Chocolate())
+        choice = random.uniform(0, 1)
+        if round(choice) == 0:
+            return (hotBeverage())
         else:
             return (self.EmptyCup)
 
 
 def main():
     coffeemachine = CoffeeMachine()
-    i = 0
-    while i < 20:
+    for _ in range (10):
         try:
-            coffeemachine.serve(Chocolate)
-            print(coffeemachine.obsolescence)
+            print(coffeemachine.serve(Chocolate).name, coffeemachine.obsolescence)
+            print(coffeemachine.serve(Tea).name, coffeemachine.obsolescence)
+            print(coffeemachine.serve(Cappuccino).name, coffeemachine.obsolescence)
+            print(coffeemachine.serve(Coffee).name, coffeemachine.obsolescence)
         except Exception as e:
             print(e)
-        i += 1
-
+            coffeemachine.repair()
 
 if __name__ == '__main__':
     main()
