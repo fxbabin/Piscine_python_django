@@ -41,19 +41,19 @@ def main():
     capital_to_state = get_capital_to_state(state_to_capital)
     state_to_capital = reformat_state_to_capital(state_to_capital)
     for elem in split:
-        elem = elem.strip().lower()
-        if len(elem) == 0:
+        tmp = elem.strip().lower()
+        if len(tmp) == 0:
             continue
-        if elem in state_to_capital:
-            capital = state_to_capital[elem]
+        if tmp in state_to_capital:
+            capital = state_to_capital[tmp]
             state = capital_to_state[capital.lower()]
             print("{} is the capital of {}".format(capital, state))
-        elif elem in capital_to_state:
-            state = capital_to_state[elem]
+        elif tmp in capital_to_state:
+            state = capital_to_state[tmp]
             capital = state_to_capital[state.lower()]
             print("{} is the capital of {}".format(capital, state))
         else:
-            print("{} is neither a capital city not a state".format(elem))
+            print("{} is neither a capital city nor a state".format(elem.strip()))
 
 if __name__ == '__main__':
     main()

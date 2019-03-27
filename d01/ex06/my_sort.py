@@ -31,7 +31,7 @@ def main():
     
     for year, musicians in sorted(year_musician.items()):
         for musician in sorted(musicians):
-            print(year, musician)
+            print(musician)
 
 
 if __name__ == '__main__':
