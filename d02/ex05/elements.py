@@ -83,7 +83,7 @@ class Img(Elem):
     def __init__(self, content=None, attr={}):
         super().__init__(tag="img", content=content, attr=attr, tag_type="simple")
 
-def simple_tests():
+def tests():
     assert (str(Html(Text("Content")))) == '<html>\n  Content\n</html>'
     assert (str(Html(Text("Content"), {'lang': "en"}))) == '<html lang="en">\n  Content\n</html>'
     assert (str(Head(Text("Content")))) == '<head>\n  Content\n</head>'
@@ -105,10 +105,10 @@ def simple_tests():
     assert (str(Img(attr={'src': 'image.png', 'title': 'fake'}))) == '<img src="image.png" title="fake" />'
     assert (str(Hr())) == '<hr />'
     assert (str(Br())) == '<br />'
-    print("Simple tests: OK")
+    print("tests: OK")
 
 def main():
-    simple_tests()
+    tests()
     html = Html([
         Head(
             Title(Text('"hello ground!"'))
