@@ -40,8 +40,9 @@ class Cappuccino(HotBeverages):
 
 def main():
     beverage = HotBeverages()
-    print("Hot beverage :"
-          "{}".format(beverage))
+    #print("Hot beverage :\n"
+    #      "{}".format(beverage))
+    print(beverage)
     coffee = Coffee()
     print(coffee)
     tea = Tea()

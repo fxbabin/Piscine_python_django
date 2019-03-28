@@ -70,16 +70,12 @@ class Elem():
         len_content = len(self.content)
         idx = 0
         for elem in self.content:
-            #print(str(type(elem))[:5])
             if type(elem) != Text:
-                #print((type(elem.super())))
                 out += "\n  "
                 out += elem.__str__().replace("\n", "\n  ")
                 if idx == len_content - 1 :
                     out += "\n"
             else:
-                #if type(elem.super())
-                
                 out += "\n  "
                 out += elem
                 if idx == len_content - 1 :
@@ -98,7 +94,7 @@ def main():
      tag='html',
       content=[Elem(tag='head', 
        content=Elem(tag='title',
-            content=Text('"hello ground!"'))),
+            content=Text('"Hello ground!"'))),
       Elem(tag='body',
         content=[Elem(tag='h1',
           content=Text('"Oh no, not again!"')), 

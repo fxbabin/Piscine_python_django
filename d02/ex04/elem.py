@@ -94,7 +94,7 @@ def main():
      tag='html',
       content=[Elem(tag='head', 
        content=Elem(tag='title',
-            content=Text('"hello ground!"'))),
+            content=Text('"Hello ground!"'))),
       Elem(tag='body',
         content=[Elem(tag='h1',
           content=Text('"Oh no, not again!"')), 

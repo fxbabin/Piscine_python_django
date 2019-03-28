@@ -12,7 +12,6 @@ class Body(Elem):
 
 class Head(Elem):
     def __init__(self, content=None):
-        print(content, type(content))
         super().__init__(tag="head", content=content)
 
 class Title(Elem):
