@@ -1,7 +1,9 @@
 #! /usr/bin/python3
 
-import local_lib.path as path
+import path
 
+# With a fixed path
+# import local_lib.path as path
 
 def main():
     directory = path.Path('local_lib/tmp')
