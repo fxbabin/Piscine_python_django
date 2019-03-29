@@ -5,7 +5,8 @@ import requests
 from bs4 import BeautifulSoup
 
 def send_themeuest(theme):
-    #print(theme)
+    #  print(theme)
+    #  game, house, monogamy
     response = requests.get('https://en.wikipedia.org/wiki/' + theme)
     if response.status_code == 404:
         print("It leads to a dead end !")
@@ -52,7 +53,7 @@ def process_request(theme):
     for road in roads:
         print(road)
     return (len(roads))
-    
+
 
 def main():
     if len(sys.argv) != 2:
@@ -61,7 +62,7 @@ def main():
     len_road = process_request(sys.argv[1])
     print("{} roads from {} to philosophy".format(len_road, sys.argv[1]))
 
-#game, house, monogamy
+
 
 if __name__ == '__main__':
     main()
