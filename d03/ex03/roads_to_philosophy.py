@@ -4,74 +4,64 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-def send_request(theme):
-    print(theme)
+def send_themeuest(theme):
+    #print(theme)
     response = requests.get('https://en.wikipedia.org/wiki/' + theme)
     if response.status_code == 404:
-        print("0 It leads to a dead end !")
+        print("It leads to a dead end !")
         sys.exit(0)
     if response.status_code != 200:
-        print("Error in request : '{}' code returned".format(str(response.status_code)))
+        print("Error in themeuest : '{}' code returned".format(str(response.status_code)))
         sys.exit(0)
     soup = BeautifulSoup(response.content, 'html.parser')
     relevant_content = soup.find(id="mw-content-text")
     curr_p = False
+    tmp = None
     for el in relevant_content.find_all('p'):
-        
         if el.b:
             curr_p = True
+            tmp = el
             break
             print(el.b)
-            #curr_p = el
-    #print(el)
     if not curr_p:
-        print("1 It leads to a dead end !")
+        print("It leads to a dead end !")
         sys.exit(0)
-    all_a = relevant_content.find_all('a')
+    all_a = tmp.find_all('a')
     if len(all_a) == 0:
-        print("2 It leads to a dead end !")
+        print("It leads to a dead end !")
         sys.exit(0)
-    #print(all_a)
     for a in all_a:
-        # if not a['href'].startswith('/wiki'):
-        #     continue
-        # if a['href'].startswith('/wiki/Help'):
-        #     continue
-        # req = a['href'][6:]
-        # return (req)
-        if str(a).find('title') > 0:
-            target = a['title']
-            if target:
-                if not target.startswith('Help:'):
-                    print(a) 
-                    return target
+        if not a['href'].startswith('/wiki'):
+            continue
+        if a['href'].startswith('/wiki/Help'):
+            continue
+        theme = a['href'][6:]
+        return (theme.replace("_", " "))
 
-        #if a.startswith("/wiki") and not a.startswith("/wiki/Help"):
-        #    print(a[6:])
-    #title = str(soup.title.string).replace(" - Wikipedia", "")
-    #print(rr)
-    #exit(1)
-
-def process_request(req):
-    roads = [req]
-    while (req.lower() != 'philosophy'):
-        req = send_request(req)
-        # if req is None:
-        #     print('It leads to an infinite loop !')
-        #     exit(1)
-        if req in roads: # requete deja trouvee
-            #print("debug : req = ", req)
+def process_request(theme):
+    roads = [theme]
+    while (theme.lower() != 'philosophy'):
+        theme = send_themeuest(theme)
+        if theme is None:
+            print("It leads to a dead end !")
+            sys.exit(0)
+        if theme in roads:
             print('It leads to an infinite loop !')
-            exit(1)
-        roads.append(req)
+            sys.exit(0)
+        roads.append(theme)
     for road in roads:
         print(road)
+    return (len(roads))
+    
 
 def main():
     if len(sys.argv) != 2:
         print("Error : wrong number of arguments")
         return
-    process_request(sys.argv[1])
+    len_road = process_request(sys.argv[1])
+    print("{} roads from {} to philosophy".format(len_road, sys.argv[1]))
+
+#game, house, monogamy
 
 if __name__ == '__main__':
     main()
