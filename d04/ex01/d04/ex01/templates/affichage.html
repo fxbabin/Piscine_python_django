@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Ex01 : Processus d’affichage d’une page statique.
+{% endblock %}
+
+{% block style %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style1.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div>
+    <p>
+            A common way of explaining Django’s architecture in terms of MVC is to describe it as a Model-Template-View (MTV) or Model-View-Template (MVT). There’s no difference between MTV and MVT, by the way – they’re two different ways of writing exactly the same thing, which just adds to the confusion.
+
+            The misleading part of this diagram is the view. The view in Django is most often described as being equivalent to the controller in MVC, but it’s not – it’s still the view.
+    </p>
+    <h2>Django MTV Stack</h2>
+    <p>
+            Like all client/server architectures, Django uses request and response objects to communicate between the client and the server. As Django is a web framework, we’re talking about HTTP request and response objects.
+
+            So, in this simplified process, the view retrieves data from the database via the model, formats it, bundles it up in an HTTP response object and sends it to the client (browser).
+            
+            In other words, the view presents the model to the client as an HTTP response. This also happens to be the exact definition of the view in MVC, or to quote Wikipedia (not the most definitive source, I know, but close enough):
+            
+            “The view means presentation of the model in a particular format”
+            
+            Trying to bend the definition of a Django view to fit a particular viewpoint inevitably leads to one of two things:
+            
+                Confused programmer puts everything in views module; or
+                Confused programmer says “Django is too hard!”, and goes and watches TV instead
+            
+            So to get away from our M’s and T’s and V’s and C’s, Figure 3.3 presents a more wholistic view of what Django’s architecture looks like.
+            
+            A more wholistic view of Django's architecture
+            
+            Figure 3.3: A more wholistic view of Django’s architecture
+            
+            The first point of confusion we can clear up is where to put a particular function or class:
+            
+            Does the function/class return a response?
+            
+                YES – it’s a view. Put it in the views module (views.py)
+                NO – it’s not a view, it’s app logic. Put it somewhere else (somewhere_else.py)
+            
+            We’ll discuss the somewhere else part in the next section of this chapter.
+            
+            The next point to note is that the Django framework encapsulates the model, view logic and business logic. In some tutorials, it’s been said that the Django framework is the controller, but that isn’t true either – the Django framework can do much more than respond to user input and interact with data.
+            
+            A perfect example of this extra power is Django middleware which sits between the view and the client-side. Django’s middleware performs critical security and authentication checks before the response is sent to the browser.
+            
+            So, returning to the two confused responses from the beginning of the chapter:
+            
+                Beginners – no, you don’t have to learn about MVC because it’s more than likely going to confuse you and lead to more questions than answers
+                Programmers – no, Django is not like Framework X and trying to think it is, is likely to confuse you and lead to more questions than answers
+            
+            Now that we have got that out of the way, let’s get on and have a look at the structure of a Django project.
+    </p>
+</div>
+
+{% endblock %}

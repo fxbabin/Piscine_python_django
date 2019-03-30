@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Ex01 : Django, framework web.
+{% endblock %}
+
+{% block style %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style1.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div>
+    <h2>Introduction</h2>
+    <p>
+        Django (/ˈdʒæŋɡoʊ/ JANG-goh; stylised as django)[5] is a Python-based free and open-source web framework, which follows the model-view-template (MVT) architectural pattern.[6][7] It is maintained by the Django Software Foundation (DSF), an independent organization established as a 501(c)(3) non-profit.
+
+        Django's primary goal is to ease the creation of complex, database-driven websites. The framework emphasizes reusability and "pluggability" of components, less code, low coupling, rapid development, and the principle of don't repeat yourself.[8] Python is used throughout, even for settings files and data models. Django also provides an optional administrative create, read, update and delete interface that is generated dynamically through introspection and configured via admin models.
+        
+        Some well-known sites that use Django include the Public Broadcasting Service,[9] Instagram,[10] Mozilla,[11] The Washington Times,[12] Disqus,[13] Bitbucket,[14] and Nextdoor.[15] It was used on Pinterest,[16] but later the site moved to a framework built over Flask.[17] 
+    </p>
+    <h2>History</h2>
+    <p>
+            Django was created in the fall of 2003, when the web programmers at the Lawrence Journal-World newspaper, Adrian Holovaty and Simon Willison, began using Python to build applications. It was released publicly under a BSD license in July 2005. The framework was named after guitarist Django Reinhardt.[18]
+
+            In June 2008, it was announced that a newly formed Django Software Foundation (DSF) would maintain Django in the future.[
+    </p>
+</div>
+{% endblock %}

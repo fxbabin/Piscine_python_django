@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Ex01 : Moteur de template.
+{% endblock %}
+
+{% block style %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style2.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div>
+    <h2>Blocks</h2>
+    <p>
+        Blocks are part of content, style (any html code) that are going to be injected into a template html.
+    </p>
+    <h2>Conditions</h2>
+    <p>
+        Evaluates a variable, and if that variable is “true” the contents of the block are displayed:
+    </p>
+    <h2>For in loops</h2>
+    <p>
+        For is a tag. Tags are more complex than variables: Some create text in the output, some control flow by performing loops or logic, and some load external information into the template to be used by later variables.
+    </p>
+    <h2>Variables</h2>
+    <p>
+         When the template engine encounters a variable, it evaluates that variable and replaces it with the result. Variable names consist of any combination of alphanumeric characters and the underscore ("_"). The dot (".") also appears in variable sections, although that has a special meaning, as indicated below. Importantly, you cannot have spaces or punctuation characters in variable names.
+    </p>
+</div>
+
+{% endblock %}
