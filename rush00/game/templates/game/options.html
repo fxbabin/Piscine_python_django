@@ -1,0 +1,26 @@
+{% extends 'game/base.html' %}
+
+{% block screen %}
+<div class="screen">
+	<div class=menu>
+		<h1> Moviemon : Gotta watch them all</h1>
+		<h3>A : Save Game</h3>
+		<h3>B : Quit</h3>
+		<h3>Start: Cancel</h3>
+	</div>
+{% endblock %}
+
+{% block cross %}
+	
+{% include 'game/active_cross.html' %}
+
+{% endblock %}
+
+
+{% block a_button %}
+    <button id="a_button" class="btn" type='submit' name='action' value='A'>A</button>
+{% endblock %}
+
+{% block b_button %}
+    <button id="b_button" class="btn" type='submit' name='action' value='B'>B</button>
+{% endblock %}

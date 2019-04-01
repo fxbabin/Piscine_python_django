@@ -1,0 +1,56 @@
+{% extends 'game/base.html' %}
+{% load static %}
+{% block screen %}
+<div class="screen" style="background-image: url({% static 'img/map.png'%})">
+	<table class="map">
+		{% for row in size %}
+		<tr>
+			{% for cell in size %}
+				{% if row == y and x == cell  %}
+				<td class="cell"><img style="transform:{{scale}};" class="hero" src="https://data.whicdn.com/images/5288877/original.gif" alt="player" height="35" width="35"></td>
+				{% else %}
+				<td class="cell"></td>
+				{% endif %}
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</table>
+{% endblock %}
+
+
+	{% block info %}
+	<span>
+		<span> 
+			<img style="width:25px;"alt="pokeball" 
+			src="https://cdn3.iconfinder.com/data/icons/universal-icons-3/1000/pokeball_A-512.png">
+			 MovieBall: {{ movieball }}</span><br>
+			{% if event == 'movieball' %}
+			<br><span> NICE !! You found a MovieBall !!</span>
+			{% elif event == 'moviemon' %}
+			<br><span> A wild <strong>{{ moviemon_found }}</strong> appears !! <strong>PRESS A TO FIGHT</strong></span>
+			{% endif %}
+	</span>
+	{% endblock %}
+
+	{% block cross %}
+	
+			{% include 'game/active_cross.html' %}
+	
+	{% endblock %}
+
+{% block a_button %}
+	{% if event == 'moviemon'%}
+		<button class="btn" type='submit' name='action' value='A'>A</button>
+	{% elif event == 'movieball' %}
+		<button class="btn" type='button' name='action' value='A'>A</button>
+	{% else %}
+		<button class="btn" type='button' name='action' value='A'>A</button>
+	{% endif%}
+{% endblock %}
+
+{% block select %}
+    <button class="btn btn2" type='submit' name='action' value='select'></button>
+{% endblock %}
+{% block start %}
+	<button class="btn btn2" type='submit' name='action' value='start'></button>
+{% endblock %}

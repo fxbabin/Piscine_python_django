@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang='en'>
+{% load static %}
+	<head>
+		<meta charset='utf-8'>
+			{% block style %}
+				<link rel="stylesheet" type="text/css" href="{% static 'game/style.css' %}">
+			{% endblock %}
+		<title>Moviemon</title>
+	</head>
+	<body>
+		<div class="outer-div">
+			<div class="gb">
+				
+				<div class="screen_border">
+				
+				{% block screen %}
+					<div class="screen">
+				{% endblock %}
+					</div>
+					<div class="info" >
+						{% block info %}
+						{% endblock %}
+					</div>
+				</div>
+				<form method='POST'>
+					{% csrf_token %}
+				<div class="controllers">
+					{% block cross %}
+					{% endblock %}
+					<div class="buttons_contener">
+						{% block b_button %}
+							<button id="b_button" class="btn" type='button' name='action' value='B'>B</button>
+						{% endblock %}
+					
+						{% block a_button %}
+							<button id="a_button" class="btn" type='button' name='action' value='A'>A</button>
+						{% endblock %}
+					</div>
+				</div>
+				<div class="start_select_contener">
+					<div>
+						{% block start %}
+							<button class="btn btn2" type='button' name='action' value='start'></button>
+						{% endblock %}
+						{% block select %}
+							<button class="btn btn2" type='button' name='action' value='select'></button>
+						{% endblock %}
+					</div>
+					<div>
+						<span>start</span>
+						<span>select</span>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+		{% block content %}
+		{% endblock %}
+	</body>
+</html>

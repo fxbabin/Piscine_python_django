@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+Forms.
+{% endblock %}
+
+{% block content %}
+<h2>Form</h2>
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<h2>History</h2>
+<div>
+    {% for message in history %}
+        <p>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endblock %}
