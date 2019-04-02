@@ -114,7 +114,8 @@ def display(request):
             <td style='border: 1px solid black;'> {} </td>
             <td style='border: 1px solid black;'> {} </td>
             <td style='border: 1px solid black;'> {} </td>
-            """.format(m.episode_nb, m.title, m.director, m.producer, m.release_date)
+            <td style='border: 1px solid black;'> {} </td>
+            """.format(m.episode_nb, m.title, m.opening_crawl, m.director, m.producer, m.release_date)
         res += "</table>"
         return HttpResponse(res)
     except Exception as e:
