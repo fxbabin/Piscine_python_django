@@ -1,5 +1,19 @@
-{% block content %}
-<nav>
-    Hello {{ user_name }} !
-</nav>
-{% endblock %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Life Pro Tips</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+
+<!--    {% if request.COOKIE.mycookie %}
+    Cookie value : {{request.COOKIE.mycookie}}
+    {% else %}
+    Cookieundefined.
+    {% endif %}
+ -->

@@ -121,4 +121,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 SESSION_COOKIE_AGE = 42
-USERS = ['Eva', 'Lucy', 'Francois', 'Adrien', 'Lola', 'Pierre', 'Charles', 'Sebastien']
+USERS = ['Eva', 'Lucy', 'Francois', 'Adrien', 'Lola', 'Pierre', 'Charles', 'Sebastien', 'Bastien', 'Lucas']
