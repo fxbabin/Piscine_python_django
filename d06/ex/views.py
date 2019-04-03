@@ -11,11 +11,6 @@ from .models import Tip
 def home(request):
 
     if request.method == "POST":
-        if 'delete' in request.POST:
-            form = TipForm()
-            tip = Tip.objects.get(id = request.POST['tip_id'])
-            tip.delete()
-        else:
             form = TipForm(request.POST)
             if form.is_valid():
                 content = form.cleaned_data['contenu']
