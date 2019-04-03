@@ -2,24 +2,43 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.conf import settings
 import random
 
+from django.contrib.auth.models import User
 from django.contrib import auth
-from .forms import LoginForm
+from .forms import SignInForm, SignUpForm, DeleteForm, TipForm
+from .models import Tip
 
 # Create your views here.
 def home(request):
+
+    if request.method == "POST":
+        if 'delete' in request.POST:
+            form = TipForm()
+            tip = Tip.objects.get(id = request.POST['tip_id'])
+            tip.delete()
+        else:
+            form = TipForm(request.POST)
+            if form.is_valid():
+                content = form.cleaned_data['contenu']
+                tip = Tip(contenu = content, auteur = request.user.username)
+                tip.save()
+                form = TipForm()
+    else:
+        form = TipForm()
+    tips = Tip.objects.all()
     if request.COOKIES.get('mycookie'):
         username = request.COOKIES['mycookie']
-        response = render(request, 'home.html', {'username': username})
+        response = render(request, 'home.html', {'username': username, 'form': form, 'tips': tips})
     else:
         username = random.choice(settings.USERS)
-        response = render(request, 'home.html', {'username': username})
-        response.set_cookie('mycookie', username, max_age = settings.SESSION_COOKIE_AGE)
+        response = render(request, 'home.html', {'username': username, 'form': form, 'tips': tips})
+        response.set_cookie('mycookie', username, max_age = settings.COOKIE_AGE)
     return (response)
 
-def login(request):
+def sign_in(request):
+    if request.user.is_authenticated:
+        return redirect('/')
     if request.method == "POST":
-        print('ed')
-        form = LoginForm(request.POST)
+        form = SignInForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -27,103 +46,59 @@ def login(request):
                                      password=password)
             if user and user.is_active:
                 auth.login(request, user)
-                print('ff')
                 return redirect('/')
             else:
                 form._errors['username'] = ['This user doesn\'t exists']
     else:
-        print('ffe')
-        form = LoginForm()
-    print('ffx')
-    return render(request, 'login.html', {'form', form})
+        form = SignInForm()
+    return render(request, 'sign_in.html', {'form': form})
 
-#signup ???
-# def login(request):
-#     if request.method == "POST":
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             user = auth.authenticate(username=username,
-#                                      password=password)
-#             if user and user.is_active:
-#                 auth.login(request, user)
-#                 return redirect('/')
-#             else:
-#                 form._errors['username'] = ['This user doesn\'t exists']
-#     else:
-#         form = LoginForm()
-#     return render(request, 'login.html', {'form', form})
+def username_present(username):
+    if User.objects.filter(username=username).exists():
+        return True
+    return False
 
+def sign_up(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            password_verif = form.cleaned_data['password_verif']
 
+            if password == password_verif:
+                if username_present(username):
+                    form._errors['username'] = ['This user already exists']
+                    return render(request, 'sign_up.html', {'form': form})
+                u = User.objects.create_user(username, None, password)
+                u.save()
+            else:
+                form._errors['password'] = ['passwords differs']
+                return render(request, 'sign_up.html', {'form': form})
+            user = auth.authenticate(username=username,
+                                     password=password)
+            auth.login(request, user)
+            return render(request, 'home.html', {'username': username})
+    else:
+        form = SignUpForm()
+    return render(request, 'sign_up.html', {'form': form})
 
-def logout(request):
+def sign_out(request):
     auth.logout(request)
     return redirect('/')
 
-#def inscription(request):
-
-#def connexion(request):
-
-
-# Create users
-################
-
-# from django.contrib.auth.models import User
-# u = User(username='toto', password="mysecretpassword")
-# u.username
-# u.password #non hashed password
-# u = User.objects.create_user('toto', None, 'mysecretpassword')
-# u.username
-# u.password
-
-# User session
-#################
-
-#./manage.py createsuperuser
-#toto
-#email
-#password
-
-    # if request.method == "POST":
-    #     cookie = request.POST.get('text', None)
-
-    #     request.COOKIES['mycookie'] = cookie
-    #     response = render(request, 'home.html')
-
-    #     response.set_cookie('mycookie', cookie, max_age = settings.SESSION_COOKIE_AGE)
-    #     return response
-
-    # return render(request, 'home.html')
-
-# def sign_in(request):
-#     users = MyUser.objects.all()
-#     if (request.method == "POST"):
-#         form = SignInForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             form = SignInForm()
-#         else:
-#             form =  SignInForm()
-#         return render(request, 'ex/form.html', {'users' : users,
-#                                             'form': form })
-
-# def sign_up(request):
-#     if (request.method == "POST"):
-#         form = SignUpForm(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data["username"]
-#             password = form.cleaned_data["password"]
-#             password_verif = form.cleaned_data["password_verif"]
-#             if password == password_verif:
-#                 user = auth.authenticate(username=username, 
-#                                         password=password) 
-#                 if user and user.is_active:  # Si l'objet renvoyé n'est pas None,  par défaut is_active est False
-#                     auth.login(request, user)  # nous connectons l'utilisateur
-#                 else: # sinon une erreur sera affichée
-#                     form._errors["username"] = ["This user doesn't exist."]
-#             else:
-#                 form._errors["password"] = ["les mots de passe ne sont pas semblables"]
-#     else:
-#         form = SignUpForm()
-# return render(request, 'ex/form.html', {'form': form })
+def delete_user(request):
+    users = User.objects.all()
+    print(users)
+    if request.method == "POST":
+        form = DeleteForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            u = User.objects.get(username = username)
+            u.delete()
+            return render(request, 'home.html')
+    else:
+        form = DeleteForm()
+    return render(request, 'delete.html', {'form': form})      

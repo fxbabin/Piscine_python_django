@@ -1,0 +1,15 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Sign in">
+</form>
+
+<!--<a href="/logout">Logout</a>
+    {% if not user.is_authenticated %}
+    {% endif %}
+{{ request.user.username }}-->
+{% endblock %}

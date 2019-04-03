@@ -1,4 +1,12 @@
 <nav>
     <a href="/">Life pro tips</a>
-    Hello {{ username }} !
+    
+    {% if user.is_authenticated %}
+        <a href="/sign_out">Sign out</a>
+        Hello {{ user }} !
+    {% elif username %}
+        <a href="/sign_in">Sign In</a>
+        <a href="/sign_up">Sign Up</a>
+        Hello {{ username }} !
+    {% endif %}
 </nav>

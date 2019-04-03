@@ -6,6 +6,38 @@
 </head>
 <body>
     {% include 'nav.html' %}
+    {% if tips %}
+    <p>
+    <h2>Tips</h2>   
+    <table style="border: 1px solid back;">
+        <tr style="border: 1px solid back;">
+            <td style="border: 1px solid back;" >auteur</td>
+            <td style="border: 1px solid back;" >date</td>
+            <td style="border: 1px solid back;" >contenu</td>
+        </tr>
+        <form method="POST">
+        {% csrf_token %}
+        {% for tip in tips %}
+            <tr style="border: 1px solid back;">
+                <td style="border: 1px solid back;">{{ tip.auteur }}</td>
+                <td style="border: 1px solid back;">{{ tip.date }}</td>
+                <td style="border: 1px solid back;">{{ tip.contenu }}</td>
+                <td><input type='hidden' name='tip_id' value='{{ tip.id }}'></td>
+                <td><input type='submit' name='delete' value='delete'></td>
+            </tr>
+        {% endfor %}
+        </form>
+    </table>
+    </p>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Add tip">
+        </form>
+    {% endif %}
+    
     {% block content %}
     {% endblock %}
 </body>
