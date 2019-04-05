@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <head>
+        <title>what a title</title>
+        {% load static %}
+        <style>
+        body {
+            background-image: url("{% static 'img/download.jpeg' %}");
+            background-color: #cccccc;
+        }
+        </style>
+    </head>
+    
+    <body >
+        <p>submit your files here :</p>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit" />
+        </form>
+        <ul>
+        {% for file in files %}
+            <li>
+                <a href="{{ file.file.url }}">
+                    {{ file.name }}
+                </a>
+            </li>   
+        {% empty %}
+        No file yet.
+        {% endfor %}
+        </ul>
+    </body>
+</html>
